@@ -31,3 +31,46 @@ export const signup = async (userData) => {
     return errorHandle(error);
   }
 };
+export const logout = async (data) => {
+  try {
+    const response = await Api.post("/logout", data);
+    return response;
+  } catch (error) {
+    return errorHandle(error);
+  }
+};
+
+export const createProject = async (projectData) => {
+  try {
+    const response = await Api.post("/project/create", projectData);
+    return response;
+  } catch (error) {
+    return errorHandle(error);
+  }
+};
+export const getProjects = async () => {
+  try {
+    const response = await Api.get("/project/allProjects");
+    return response;
+  } catch (error) {
+    return errorHandle(error);
+  }
+};
+export const getProjectData = async (projectId) => {
+  try {
+    console.log('iam callign api',projectId)
+    const response = await Api.get(`/project/data/${projectId}`);
+    return response;
+  } catch (error) {
+    return errorHandle(error);
+  }
+};
+
+export const createFile = async (fileData) => {
+  try {
+    const response = await Api.post("/file/create", fileData);
+    return response;
+  } catch (error) {
+    return errorHandle(error);
+  }
+};

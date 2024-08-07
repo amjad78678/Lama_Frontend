@@ -2,6 +2,10 @@ import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { login, signup } from "../../api/server";
+import { loginSchema, signupSchema } from "../../validations/validation";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setUserLogin } from "../../store/slices/authSlice";
 
 const LoginModal = ({ isLoginOpen, setIsLoginOpen }) => {
   const [email, setEmail] = useState("");
@@ -9,12 +13,17 @@ const LoginModal = ({ isLoginOpen, setIsLoginOpen }) => {
   const [isSignup, setIsSignup] = useState(false);
   const [name, setName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState({});
+  const dispatch = useDispatch();
 
-  const { status, loginMutate } = useMutation({
+  const { status, mutate: loginMutate } = useMutation({
     mutationFn: login,
-    onSuccess: (data) => {
-      console.log(data);
-      setIsLoginOpen(false);
+    onSuccess: (res) => {
+      console.log("res in login", res.data);
+      if (res.data.success) {
+        setIsLoginOpen(false);
+        dispatch(setUserLogin(res.data.user));
+      }
     },
     onError: (error) => {
       console.log(error);
@@ -22,21 +31,41 @@ const LoginModal = ({ isLoginOpen, setIsLoginOpen }) => {
   });
   const { isPending, mutate: registerMutate } = useMutation({
     mutationFn: signup,
-    onSuccess: (data) => {
-      console.log(data);
-      setIsLoginOpen(false);
+    onSuccess: (res) => {
+      if (res.data.success) {
+        toast.success(res.data.message);
+        setIsSignup(false);
+      }
     },
     onError: (error) => {
       console.log(error);
     },
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isSignup) {
-      registerMutate({ name, email, password, confirmPassword });
-    } else {
-      loginMutate({ email, password });
+    setErrors({});
+
+    const schema = isSignup ? signupSchema : loginSchema;
+    const data = isSignup
+      ? { name, email, password, confirmPassword }
+      : { email, password };
+
+    try {
+      await schema.validate(data, { abortEarly: false });
+
+      if (isSignup) {
+        registerMutate({ name, email, password, confirmPassword });
+      } else {
+        loginMutate({ email, password });
+      }
+    } catch (validationErrors) {
+      console.log("Validation failed:", validationErrors);
+      const newErrors = {};
+      validationErrors.inner.forEach((error) => {
+        newErrors[error.path] = error.message;
+      });
+      setErrors(newErrors);
     }
   };
 
@@ -44,7 +73,7 @@ const LoginModal = ({ isLoginOpen, setIsLoginOpen }) => {
     <div className="relative w-full bg-white text-[#7E22CE] rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
       <div
         className={`p-6  ${
-          !isSignup ? "md:space-y-6 space-y-4" : "space-y-2"
+          !isSignup ? "md:space-y-6 space-y-4" : "space-y-1.5"
         } sm:p-8`}
       >
         <h1 className="text-xl font-bold leading-tight tracking-tight text-[#7E22CE] md:text-2xl">
@@ -67,6 +96,9 @@ const LoginModal = ({ isLoginOpen, setIsLoginOpen }) => {
               placeholder="name"
               required
             />
+            {errors.name && (
+              <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+            )}
           </div>
         )}
         <div>
@@ -86,6 +118,9 @@ const LoginModal = ({ isLoginOpen, setIsLoginOpen }) => {
             placeholder="name@company.com"
             required
           />
+          {errors.email && (
+            <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+          )}
         </div>
         <div>
           <label
@@ -104,6 +139,9 @@ const LoginModal = ({ isLoginOpen, setIsLoginOpen }) => {
             className="bg-gray-50 border border-gray-300 text-[#7E22CE] rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
             required
           />
+          {errors.password && (
+            <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+          )}
         </div>
         {isSignup && (
           <div>
@@ -111,7 +149,7 @@ const LoginModal = ({ isLoginOpen, setIsLoginOpen }) => {
               htmlFor="confirm-password"
               className="block mb-2 text-sm font-medium text-[#7E22CE]"
             >
-              Password
+              Confirm Password
             </label>
             <input
               type="password"
@@ -121,26 +159,14 @@ const LoginModal = ({ isLoginOpen, setIsLoginOpen }) => {
               className="bg-gray-50 border border-gray-300 text-[#7E22CE] rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
               required
             />
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.confirmPassword}
+              </p>
+            )}
           </div>
         )}
-        <div className="flex items-center justify-between">
-          <div className="flex items-start">
-            <div className="flex items-center h-5">
-              <input
-                id="remember"
-                aria-describedby="remember"
-                type="checkbox"
-                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300"
-                required
-              />
-            </div>
-            <div className="ml-3 text-sm">
-              <label htmlFor="remember" className="text-[#7E22CE]">
-                Remember me
-              </label>
-            </div>
-          </div>
-        </div>
+
         <button
           onClick={handleSubmit}
           className="w-full text-white bg-[#7E22CE] hover:bg-[#6B1FAF] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center border"
