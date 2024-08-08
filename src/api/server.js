@@ -82,3 +82,19 @@ export const getProjectFiles = async (projectId) => {
     return errorHandle(error);
   }
 };
+export const getFileData = async (fileId) => {
+  try {
+    const response = await Api.get(`/file/getFileData/${fileId}`);
+    return response;
+  } catch (error) {
+    return errorHandle(error);
+  }
+};
+export const editFileDescription = async (data) => {
+  try {
+    const response = await Api.put(`/file/editFile`, data);
+    return response;
+  } catch (error) {
+    return errorHandle(error);
+  }
+};

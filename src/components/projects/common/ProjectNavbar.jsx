@@ -3,19 +3,21 @@ import { IoNotifications } from "react-icons/io5";
 import { MdOutlineHome } from "react-icons/md";
 import { RxSlash } from "react-icons/rx";
 import { MdOutlineNotifications } from "react-icons/md";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getProjectData } from "../../../api/server";
 const ProjectNavbar = () => {
   const { projectId } = useParams();
+  const navigate = useNavigate();
   console.log("projectId", projectId);
   const { isLoading, data: projectData } = useQuery({
     queryKey: ["projectNavbar"],
     queryFn: () => getProjectData(projectId),
   });
   const location = useLocation();
-  let currentPath = location.pathname.split('/')[2].charAt(0).toUpperCase() + location.pathname.split('/')[2].slice(1)
-  
+  let currentPath =
+    location.pathname.split("/")[2].charAt(0).toUpperCase() +
+    location.pathname.split("/")[2].slice(1);
 
   return (
     <div className="flex justify-between">
@@ -25,7 +27,7 @@ const ProjectNavbar = () => {
           <MdOutlineHome className="text-4xl cursor-pointer" />
         </Link>
         <RxSlash className="text-4xl cursor-pointer text-gray-400" />
-        <p className="text-3xl text-gray-400">
+        <p onClick={() => navigate(-1)} className="text-3xl text-gray-400">
           {projectData?.data?.project.projectName}
         </p>
         <RxSlash className="text-4xl cursor-pointer text-gray-400" />
