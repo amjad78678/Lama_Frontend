@@ -10,7 +10,7 @@ const Projects = () => {
         <ProjectSidebar />
 
         <div className="col-span-9">
-          <div className="p-10">
+          <div className="p-10 h-[130vh] overflow-y-scroll no-scrollbar">
             <ProjectNavbar />
             <Outlet />
           </div>

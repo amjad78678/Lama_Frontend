@@ -1,8 +1,18 @@
 import React, { useState } from "react";
 import { IoSettingsOutline } from "react-icons/io5";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const ProjectSidebar = () => {
   const [selected, setSelected] = useState("Projects");
+  const { projectId } = useParams();
+  const navigate = useNavigate()
+
+  const handleNavigate = (name,url) => {
+    setSelected(name);
+    navigate(url);
+    
+  };
+
   return (
     <div className="col-span-3 flex flex-col bg-[#f4e8ff] p-5">
       <div>
@@ -15,7 +25,7 @@ const ProjectSidebar = () => {
 
       <div className="flex flex-col flex-grow justify-between">
         <div className="flex flex-col gap-2">
-          <button onClick={() => setSelected("Projects")}>
+          <button onClick={() => handleNavigate("Projects",`/projects/upload/${projectId}`)}>
             <div
               className={`${
                 selected === "Projects"
@@ -33,27 +43,29 @@ const ProjectSidebar = () => {
               <span className="text-lg font-semibold">Projects</span>
             </div>
           </button>
-          <button onClick={() => setSelected("Widget")}>
-            <div
-              className={`${
-                selected === "Widget"
-                  ? "bg-purple text-white"
-                  : "hover:bg-[#e1d8ed] text-black"
-              } rounded-full py-2 px-4 flex items-center space-x-4 w-full max-w-md`}
-            >
+          <Link to={`/projects/widget/${projectId}`}>
+            <button onClick={() => handleNavigate("Widget",`/projects/widget/${projectId}`)}>
               <div
                 className={`${
-                  selected === "Widget" ? "bg-black" : "bg-[#cac1d4]"
-                } rounded-full w-10 h-10 flex items-center justify-center`}
+                  selected === "Widget"
+                    ? "bg-purple text-white"
+                    : "hover:bg-[#e1d8ed] text-black"
+                } rounded-full py-2 px-4 flex items-center space-x-4 w-full max-w-md`}
               >
-                <span className="text-xl font-bold">2</span>
+                <div
+                  className={`${
+                    selected === "Widget" ? "bg-black" : "bg-[#cac1d4]"
+                  } rounded-full w-10 h-10 flex items-center justify-center`}
+                >
+                  <span className="text-xl font-bold">2</span>
+                </div>
+                <span className="text-lg font-semibold whitespace-nowrap">
+                  Widget Configurations
+                </span>
               </div>
-              <span className="text-lg font-semibold whitespace-nowrap" >
-                Widget Configurations
-              </span>
-            </div>
-          </button>
-          <button onClick={() => setSelected("Deployment")}>
+            </button>
+          </Link>
+          <button onClick={() => handleNavigate("Deployment")}>
             <div
               className={`${
                 selected === "Deployment"
@@ -71,7 +83,7 @@ const ProjectSidebar = () => {
               <span className="text-lg font-semibold">Deployment</span>
             </div>
           </button>
-          <button onClick={() => setSelected("Pricing")}>
+          <button onClick={() => handleNavigate("Pricing")}>
             <div
               className={`${
                 selected === "Pricing"
