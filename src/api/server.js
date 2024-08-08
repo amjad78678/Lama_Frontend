@@ -58,7 +58,7 @@ export const getProjects = async () => {
 };
 export const getProjectData = async (projectId) => {
   try {
-    console.log('iam callign api',projectId)
+    console.log("iam callign api", projectId);
     const response = await Api.get(`/project/data/${projectId}`);
     return response;
   } catch (error) {
@@ -69,6 +69,14 @@ export const getProjectData = async (projectId) => {
 export const createFile = async (fileData) => {
   try {
     const response = await Api.post("/file/create", fileData);
+    return response;
+  } catch (error) {
+    return errorHandle(error);
+  }
+};
+export const getProjectFiles = async (projectId) => {
+  try {
+    const response = await Api.get(`/file/get/${projectId}`);
     return response;
   } catch (error) {
     return errorHandle(error);

@@ -10,6 +10,7 @@ const UploadLinkModal = ({
   setIsUploadModalOpen,
   modalPlatform,
   platformImg,
+  refetch,
 }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -18,6 +19,7 @@ const UploadLinkModal = ({
     onSuccess: (res) => {
       if (res.data.success) {
         toast.success(res.data.message);
+        refetch();
         setIsUploadModalOpen(false);
       }
     },

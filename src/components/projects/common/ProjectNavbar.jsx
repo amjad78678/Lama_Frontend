@@ -3,7 +3,7 @@ import { IoNotifications } from "react-icons/io5";
 import { MdOutlineHome } from "react-icons/md";
 import { RxSlash } from "react-icons/rx";
 import { MdOutlineNotifications } from "react-icons/md";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getProjectData } from "../../../api/server";
 const ProjectNavbar = () => {
@@ -13,6 +13,9 @@ const ProjectNavbar = () => {
     queryKey: ["projectNavbar"],
     queryFn: () => getProjectData(projectId),
   });
+  const location = useLocation();
+  let currentPath = location.pathname.split('/')[2].charAt(0).toUpperCase() + location.pathname.split('/')[2].slice(1)
+  
 
   return (
     <div className="flex justify-between">
@@ -26,7 +29,7 @@ const ProjectNavbar = () => {
           {projectData?.data?.project.projectName}
         </p>
         <RxSlash className="text-4xl cursor-pointer text-gray-400" />
-        <p className="text-3xl text-purple">Upload</p>
+        <p className="text-3xl text-purple">{currentPath}</p>
       </div>
 
       <div className="flex gap-6 justify-center items-center">
