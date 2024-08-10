@@ -4,9 +4,9 @@ import HomePage from "./pages/HomePage";
 import ProjectsPage from "./pages/ProjectsPage";
 import WidgetConfigurations from "./components/projects/widgetConfigurations/WidgetConfigurations";
 import SettingsPage from "./pages/SettingsPage";
-import TranscriptEdit from "./components/projects/transcriptEdit/TranscriptEdit.jsx";
+import TranscriptEdit from "./components/projects/transcriptEdit/TranscriptEdit";
 import ProtectedRoute from "./components/common/ProtectedRoute";
-import Upload from "./components/projects/upload/Upload.jsx";
+import Upload from "./components/projects/upload/Upload";
 
 function App() {
   return (
