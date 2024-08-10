@@ -1,14 +1,11 @@
 import toast from "react-hot-toast";
 
 const errorHandle = (error) => {
-  
-  console.log('I am error',error)
   if (error.response?.data) {
     const errorResponse = error.response.data;
     if (errorResponse.message.includes("Not authorized")) {
       toast.error("Please login before proceeding");
     } else if (errorResponse.message) {
-      console.log('i am error',errorResponse.message);
       toast.error(errorResponse.message);
     }
   } else {

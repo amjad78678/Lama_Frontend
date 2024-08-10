@@ -5,6 +5,7 @@ import ProjectsPage from "./pages/ProjectsPage";
 import Upload from "./components/projects/upload/Upload";
 import TranscriptEdit from "./components/projects/transcriptEdit/TranscriptEdit";
 import WidgetConfigurations from "./components/projects/widgetConfigurations/WidgetConfigurations";
+import SettingsPage from "./pages/SettingsPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             element={<TranscriptEdit />}
           />
           <Route path="widget/:projectId" element={<WidgetConfigurations />} />
+          <Route path="settings/:projectId" element={<SettingsPage />} />
         </Route>
       </Routes>
     </Router>

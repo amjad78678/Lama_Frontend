@@ -13,11 +13,18 @@ const ProjectNavbar = () => {
   const { isLoading, data: projectData } = useQuery({
     queryKey: ["projectNavbar"],
     queryFn: () => getProjectData(projectId),
+    enabled: projectId !== undefined,
   });
   const location = useLocation();
   let currentPath =
     location.pathname.split("/")[2].charAt(0).toUpperCase() +
     location.pathname.split("/")[2].slice(1);
+
+  if (currentPath === "Widget") {
+    currentPath = "Widget Configuration";
+  } else if (currentPath === "Settings") {
+    currentPath = "Account Settings";
+  }
 
   return (
     <div className="flex justify-between">
@@ -27,10 +34,14 @@ const ProjectNavbar = () => {
           <MdOutlineHome className="text-4xl cursor-pointer" />
         </Link>
         <RxSlash className="text-4xl cursor-pointer text-gray-400" />
-        <p onClick={() => navigate(-1)} className="text-3xl text-gray-400">
-          {projectData?.data?.project.projectName}
-        </p>
-        <RxSlash className="text-4xl cursor-pointer text-gray-400" />
+        {currentPath !== "Settings" && (
+          <>
+            <p onClick={() => navigate(-1)} className="text-3xl text-gray-400">
+              {projectData?.data?.project.projectName}
+            </p>
+            <RxSlash className="text-4xl cursor-pointer text-gray-400" />
+          </>
+        )}
         <p className="text-3xl text-purple">{currentPath}</p>
       </div>
 

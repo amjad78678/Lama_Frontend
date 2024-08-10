@@ -1,8 +1,88 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ToggleButton from "./ToggleButton";
 import { FiUpload } from "react-icons/fi";
+import { useParams } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { addWidgetConfiguration } from "../../../api/server";
+import toast from "react-hot-toast";
+import Dropzone from "react-dropzone";
 
-const Display = () => {
+const Display = ({ widget, refetch, iconUrl }) => {
+  const { projectId } = useParams();
+  const [file, setFile] = useState(null);
+  const [previewImage, setPreviewImage] = useState(iconUrl || null);
+  console.log("aim widget", widget, "pre", previewImage);
+
+  console.log("iam file", file);
+  const [widgetData, setWidgetData] = useState({
+    projectId: projectId,
+    primaryColor: "#000000",
+    fontColor: "#000000",
+    fontSize: 16,
+    chatHeight: "50%",
+    showSources: false,
+    chatIconSize: "Medium",
+    positionOnScreen: "Bottom Right",
+    distanceFromBottom: 20,
+    horizontalDistance: 20,
+  });
+
+  useEffect(() => {
+    if (widget) {
+      setWidgetData((prevData) => ({
+        ...prevData,
+        ...widget,
+      }));
+    }
+  }, [widget]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setWidgetData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleToggleChange = (value) => {
+    setWidgetData((prevData) => ({
+      ...prevData,
+      showSources: value,
+    }));
+  };
+
+  const { isPending, mutate: addWidgetMutate } = useMutation({
+    mutationFn: addWidgetConfiguration,
+    onSuccess: (res) => {
+      if (res.data.success) {
+        toast.success(res.data.message);
+        refetch();
+      }
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const handleDropFile = (file) => {
+    setFile(file);
+    setPreviewImage(URL.createObjectURL(file));
+  };
+
+  const handleSaveData = () => {
+    const formData = new FormData();
+
+    Object.keys(widgetData).forEach((key) => {
+      formData.append(key, widgetData[key]);
+    });
+
+    if (file) {
+      formData.append("botIcon", file);
+    }
+
+    addWidgetMutate(formData);
+  };
+
   return (
     <div className="flex flex-col">
       <div className="w-full border-b-4 pb-5">
@@ -13,9 +93,18 @@ const Display = () => {
               <div className="flex justify-between gap-2 h-10">
                 <input
                   type="text"
+                  name="primaryColor"
+                  value={widgetData.primaryColor}
+                  onChange={handleInputChange}
                   className="border border-gray-400 w-full rounded-lg"
                 />
-                <input className="border w-10 h-full rounded-lg" type="color" />
+                <input
+                  className="border w-10 h-full rounded-lg"
+                  type="color"
+                  name="primaryColor"
+                  value={widgetData.primaryColor}
+                  onChange={handleInputChange}
+                />
               </div>
               <p className="text-xs">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -25,7 +114,10 @@ const Display = () => {
               <h1 className="font-bold text-lg mb-2">Font Size (in px)</h1>
               <div className="flex justify-between gap-2 h-10">
                 <input
-                  type="text"
+                  type="number"
+                  name="fontSize"
+                  value={widgetData.fontSize}
+                  onChange={handleInputChange}
                   className="border border-gray-400 w-full rounded-lg"
                 />
               </div>
@@ -35,7 +127,11 @@ const Display = () => {
             </div>
             <div>
               <h1 className="font-bold text-lg mb-1">Show Resources</h1>
-
+              <ToggleButton
+                value={widgetData.showSources}
+                onChange={handleToggleChange}
+                refetch={refetch}
+              />
               <p className="text-xs">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
               </p>
@@ -48,9 +144,18 @@ const Display = () => {
               <div className="flex justify-between gap-2 h-10">
                 <input
                   type="text"
+                  name="fontColor"
+                  value={widgetData.fontColor}
+                  onChange={handleInputChange}
                   className="border border-gray-400 w-full rounded-lg"
                 />
-                <input className="border w-10 h-full rounded-lg" type="color" />
+                <input
+                  className="border w-10 h-full rounded-lg"
+                  type="color"
+                  name="fontColor"
+                  value={widgetData.fontColor}
+                  onChange={handleInputChange}
+                />
               </div>
               <p className="text-xs">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -63,16 +168,15 @@ const Display = () => {
               <div className="flex justify-between gap-2 h-10">
                 <input
                   type="text"
+                  name="chatHeight"
+                  value={widgetData.chatHeight}
+                  onChange={handleInputChange}
                   className="border border-gray-400 w-full rounded-lg"
                 />
-                <input className="border w-10 h-full rounded-lg" type="color" />
               </div>
               <p className="text-xs">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
               </p>
-            </div>
-            <div className="ms-auto my-auto">
-              <ToggleButton />
             </div>
           </div>
         </div>
@@ -86,10 +190,16 @@ const Display = () => {
             <div>
               <h1 className="font-bold text-lg mb-2">Chat Icon Size</h1>
               <div className="flex justify-between gap-2 h-10">
-                <input
-                  type="text"
+                <select
+                  name="chatIconSize"
+                  value={widgetData.chatIconSize}
+                  onChange={handleInputChange}
                   className="border border-gray-400 w-full rounded-lg"
-                />
+                >
+                  <option value="Small (48x 48px)">Small (48x 48px)</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Large">Large</option>
+                </select>
               </div>
               <p className="text-xs">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -101,7 +211,10 @@ const Display = () => {
               </h1>
               <div className="flex justify-between gap-2 h-10">
                 <input
-                  type="text"
+                  type="number"
+                  name="distanceFromBottom"
+                  value={widgetData.distanceFromBottom}
+                  onChange={handleInputChange}
                   className="border border-gray-400 w-full rounded-lg"
                 />
               </div>
@@ -113,16 +226,36 @@ const Display = () => {
             <div className="">
               <h1 className="font-bold text-lg mb-2">Bot Icon</h1>
               <div className="my-2 flex gap-4 items-center">
-                <div className="w-20 h-20 rounded-full border border-gray-400">
-                  <img src="" alt="" />
+                <div className="w-20 h-20 rounded-full border border-gray-400 flex justify-center items-center overflow-hidden">
+                  <img
+                    className="w-full h-full object-cover"
+                    src={previewImage}
+                    alt=""
+                  />
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <button type="button" className="flex gap-2 items-center bg-purple text-white px-4 py-2 rounded-lg font-bold">
-                    <h1>Upload Image</h1>
-                    <FiUpload />
-                  </button>
-                  <p className="text-xs">Recommended Size: 48x48px</p>
+                  <Dropzone
+                    onDrop={(acceptedFiles) => handleDropFile(acceptedFiles[0])}
+                  >
+                    {({ getRootProps, getInputProps }) => (
+                      <section>
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <button
+                            type="button"
+                            className="flex gap-2 items-center bg-purple text-white px-4 py-2 rounded-lg font-bold"
+                          >
+                            <h1>Upload Image</h1>
+                            <FiUpload />
+                          </button>
+                        </div>
+                      </section>
+                    )}
+                  </Dropzone>
+                  <p className="text-xs">
+                    {file?.path || "Recommended Size: 48x48px"}
+                  </p>
                 </div>
               </div>
             </div>
@@ -132,10 +265,17 @@ const Display = () => {
             <div>
               <h1 className="font-bold text-lg mb-2">Position on Screen</h1>
               <div className="flex justify-between gap-2 h-10">
-                <input
-                  type="text"
+                <select
+                  name="positionOnScreen"
+                  value={widgetData.positionOnScreen}
+                  onChange={handleInputChange}
                   className="border border-gray-400 w-full rounded-lg"
-                />
+                >
+                  <option value="Bottom Right">Bottom Right</option>
+                  <option value="Bottom Left">Bottom Left</option>
+                  <option value="Top Right">Top Right</option>
+                  <option value="Top Left">Top Left</option>
+                </select>
               </div>
               <p className="text-xs">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -147,7 +287,10 @@ const Display = () => {
               </h1>
               <div className="flex justify-between gap-2 h-10">
                 <input
-                  type="text"
+                  type="number"
+                  name="horizontalDistance"
+                  value={widgetData.horizontalDistance}
+                  onChange={handleInputChange}
                   className="border border-gray-400 w-full rounded-lg"
                 />
               </div>
@@ -155,6 +298,14 @@ const Display = () => {
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
               </p>
             </div>
+
+            <button
+              className="mt-10 bg-purple px-6 rounded-lg font-bold text-white w-[8vw] py-2 text-xl"
+              onClick={handleSaveData}
+              disabled={isPending}
+            >
+              Save
+            </button>
           </div>
         </div>
       </div>

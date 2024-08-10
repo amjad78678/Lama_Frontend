@@ -2,15 +2,28 @@ import React, { useState } from "react";
 import General from "./General";
 import Display from "./Display";
 import Advanced from "./Advanced";
+import { useQuery } from "@tanstack/react-query";
+import { getWidgetConfiguration } from "../../../api/server";
+import { useParams } from "react-router-dom";
 
 const WidgetConfigurations = () => {
   const [selected, setSelected] = useState("general");
-
+  const { projectId } = useParams();
   const textColor = (tab) => {
     return selected === tab
       ? "text-purple font-bold border-b-4 border-purple"
       : "text-black";
   };
+  const {
+    isLoading,
+    data: widgetData,
+    refetch,
+  } = useQuery({
+    queryKey: ["widgetConfigurations"],
+    queryFn: () => getWidgetConfiguration(projectId),
+  });
+
+  console.log("widgetData", widgetData);
 
   return (
     <div>
@@ -38,9 +51,15 @@ const WidgetConfigurations = () => {
           </h1>
         </div>
         <div className="w-full my-6">
-          {selected === "general" && <General />}
-          {selected === "display" && <Display />}
-          {selected === "Advanced" && <Advanced />}
+          {selected === "general" && (
+            <General {...{ widget: widgetData?.data?.widget, refetch }} />
+          )}
+          {selected === "display" && (
+            <Display {...{ widget: widgetData?.data?.widget,refetch,iconUrl:widgetData?.data?.iconUrl }} />
+          )}
+          {selected === "Advanced" && (
+            <Advanced {...{ widget: widgetData?.data?.widget }} />
+          )}
         </div>
       </div>
     </div>

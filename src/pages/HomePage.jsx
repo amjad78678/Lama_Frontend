@@ -8,6 +8,7 @@ import CreateProjectModal from "./CreateProjectModal";
 import { useQuery } from "@tanstack/react-query";
 import { getProjects } from "../api/server";
 import { useSelector } from "react-redux";
+import Loader from "../components/common/Loader";
 
 const HomePage = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -27,7 +28,7 @@ const HomePage = () => {
   console.log("i am project data", projectData);
 
   return isLoading && !projectData ? (
-    <h1>Loading...</h1>
+    <Loader />
   ) : (
     <>
       <div>

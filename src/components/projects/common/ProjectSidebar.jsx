@@ -5,12 +5,21 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 const ProjectSidebar = () => {
   const [selected, setSelected] = useState("Projects");
   const { projectId } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const handleNavigate = (name,url) => {
+  const handleNavigate = (name, url) => {
     setSelected(name);
     navigate(url);
-    
+  };
+
+  const textColor = (tab) => {
+    return selected === tab
+      ? "bg-purple text-white"
+      : "hover:bg-[#e1d8ed] text-black";
+  };
+
+  const logoColor = (tab) => {
+    return selected === tab ? "bg-black" : "bg-[#cac1d4]";
   };
 
   return (
@@ -25,18 +34,20 @@ const ProjectSidebar = () => {
 
       <div className="flex flex-col flex-grow justify-between">
         <div className="flex flex-col gap-2">
-          <button onClick={() => handleNavigate("Projects",`/projects/upload/${projectId}`)}>
+          <button
+            onClick={() =>
+              handleNavigate("Projects", `/projects/upload/${projectId}`)
+            }
+          >
             <div
-              className={`${
-                selected === "Projects"
-                  ? "bg-purple text-white"
-                  : "hover:bg-[#e1d8ed] text-black"
-              } rounded-full py-2 px-4 flex items-center space-x-4 w-full max-w-md`}
+              className={`${textColor(
+                "Projects"
+              )} rounded-full py-2 px-4 flex items-center space-x-4 w-full max-w-md`}
             >
               <div
-                className={`${
-                  selected === "Projects" ? "bg-black" : "bg-[#cac1d4]"
-                } rounded-full w-10 h-10 flex items-center justify-center`}
+                className={`${logoColor(
+                  "Projects"
+                )} rounded-full w-10 h-10 flex items-center justify-center`}
               >
                 <span className="text-xl font-bold">1</span>
               </div>
@@ -44,18 +55,20 @@ const ProjectSidebar = () => {
             </div>
           </button>
           <Link to={`/projects/widget/${projectId}`}>
-            <button onClick={() => handleNavigate("Widget",`/projects/widget/${projectId}`)}>
+            <button
+              onClick={() =>
+                handleNavigate("Widget", `/projects/widget/${projectId}`)
+              }
+            >
               <div
-                className={`${
-                  selected === "Widget"
-                    ? "bg-purple text-white"
-                    : "hover:bg-[#e1d8ed] text-black"
-                } rounded-full py-2 px-4 flex items-center space-x-4 w-full max-w-md`}
+                className={`${textColor(
+                  "Widget"
+                )} rounded-full py-2 px-4 flex items-center space-x-4 w-full max-w-md`}
               >
                 <div
-                  className={`${
-                    selected === "Widget" ? "bg-black" : "bg-[#cac1d4]"
-                  } rounded-full w-10 h-10 flex items-center justify-center`}
+                  className={`${logoColor(
+                    "Widget"
+                  )} rounded-full w-10 h-10 flex items-center justify-center`}
                 >
                   <span className="text-xl font-bold">2</span>
                 </div>
@@ -67,16 +80,14 @@ const ProjectSidebar = () => {
           </Link>
           <button onClick={() => handleNavigate("Deployment")}>
             <div
-              className={`${
-                selected === "Deployment"
-                  ? "bg-purple text-white"
-                  : "hover:bg-[#e1d8ed] text-black"
-              } rounded-full py-2 px-4 flex items-center space-x-4 w-full max-w-md`}
+              className={`${textColor(
+                "Deployment"
+              )} rounded-full py-2 px-4 flex items-center space-x-4 w-full max-w-md`}
             >
               <div
-                className={`${
-                  selected === "Deployment" ? "bg-black" : "bg-[#cac1d4]"
-                } rounded-full w-10 h-10 flex items-center justify-center`}
+                className={`${logoColor(
+                  "Deployment"
+                )} rounded-full w-10 h-10 flex items-center justify-center`}
               >
                 <span className="text-xl font-bold">3</span>
               </div>
@@ -85,16 +96,14 @@ const ProjectSidebar = () => {
           </button>
           <button onClick={() => handleNavigate("Pricing")}>
             <div
-              className={`${
-                selected === "Pricing"
-                  ? "bg-purple text-white"
-                  : "hover:bg-[#e1d8ed] text-black"
-              } rounded-full py-2 px-4 flex items-center space-x-4 w-full max-w-md`}
+              className={`${textColor(
+                "Pricing"
+              )} rounded-full py-2 px-4 flex items-center space-x-4 w-full max-w-md`}
             >
               <div
-                className={`${
-                  selected === "Pricing" ? "bg-black" : "bg-[#cac1d4]"
-                } rounded-full w-10 h-10 flex items-center justify-center`}
+                className={`${logoColor(
+                  "Pricing"
+                )} rounded-full w-10 h-10 flex items-center justify-center`}
               >
                 <span className="text-xl font-bold">4</span>
               </div>
@@ -103,11 +112,22 @@ const ProjectSidebar = () => {
           </button>
         </div>
 
-        <div className="mt-auto border-t border-gray-400 flex justify-start items-center gap-3 pt-4">
-          <span>
-            <IoSettingsOutline className="text-3xl" />
-          </span>
-          <p className="text-xl text-center">Settings</p>
+        <div className="border-t border-gray-400 w-full">
+          <div
+            onClick={() => handleNavigate("Settings", `/projects/settings/${projectId}`)}
+            className={`mt-auto ${textColor(
+              "Settings"
+            )} flex justify-start items-center gap-3 px-4 py-2 rounded-full mt-2`}
+          >
+            <span
+              className={`${logoColor(
+                "Settings"
+              )} rounded-full w-10 h-10 flex items-center justify-center`}
+            >
+              <IoSettingsOutline className="text-3xl" />
+            </span>
+            <p className="text-xl text-center">Settings</p>
+          </div>
         </div>
       </div>
     </div>

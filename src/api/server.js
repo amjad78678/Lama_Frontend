@@ -66,6 +66,27 @@ export const getProjectData = async (projectId) => {
   }
 };
 
+export const addWidgetConfiguration = async (data) => {
+  try {
+    const response = await Api.post(`/project/addWidget`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response;
+  } catch (error) {
+    return errorHandle(error);
+  }
+};
+export const getWidgetConfiguration = async (projectId) => {
+  try {
+    const response = await Api.get(`/project/getWidget/${projectId}`);
+    return response;
+  } catch (error) {
+    return errorHandle(error);
+  }
+};
+
 export const createFile = async (fileData) => {
   try {
     const response = await Api.post("/file/create", fileData);
@@ -93,6 +114,26 @@ export const getFileData = async (fileId) => {
 export const editFileDescription = async (data) => {
   try {
     const response = await Api.put(`/file/editFile`, data);
+    return response;
+  } catch (error) {
+    return errorHandle(error);
+  }
+};
+export const getUserData = async () => {
+  try {
+    const response = await Api.get(`/getUserData`);
+    return response;
+  } catch (error) {
+    return errorHandle(error);
+  }
+};
+export const editUserData = async (data) => {
+  try {
+    const response = await Api.put(`/editUser`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response;
   } catch (error) {
     return errorHandle(error);
