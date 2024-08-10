@@ -1,18 +1,18 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ProtectedRoute from "./components/common/ProtectedRoute";
-import Loader from "./components/common/Loader";
+import ProtectedRoute from "./components/common/ProtectedRoute.jsx";
+import Loader from "./components/common/Loader.jsx";
 
-const HomePage = lazy(() => import("./pages/HomePage"));
-const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
+const HomePage = lazy(() => import("./pages/HomePage.jsx"));
+const ProjectsPage = lazy(() => import("./pages/ProjectsPage.jsx"));
 const WidgetConfigurations = lazy(() =>
-  import("./components/projects/widgetConfigurations/WidgetConfigurations")
+  import("./components/projects/widgetConfigurations/WidgetConfigurations.jsx")
 );
-const SettingsPage = lazy(() => import("./pages/SettingsPage"));
+const SettingsPage = lazy(() => import("./pages/SettingsPage.jsx"));
 const TranscriptEdit = lazy(() =>
-  import("./components/projects/transcriptEdit/TranscriptEdit")
+  import("./components/projects/transcriptEdit/TranscriptEdit.jsx")
 );
-const Upload = lazy(() => import("./components/projects/upload/Upload"));
+const Upload = lazy(() => import("./components/projects/upload/Upload.jsx"));
 
 function App() {
   return (
