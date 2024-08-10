@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ProjectsPage from "./pages/ProjectsPage";
 import Upload from "./components/projects/upload/Upload";
-import TranscriptEdit from "./components/projects/transcriptEdit/TranscriptEdit";
 import WidgetConfigurations from "./components/projects/widgetConfigurations/WidgetConfigurations";
 import SettingsPage from "./pages/SettingsPage";
+import TranscriptEdit from "./components/projects/transcriptEdit/TranscriptEdit";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 
 function App() {
