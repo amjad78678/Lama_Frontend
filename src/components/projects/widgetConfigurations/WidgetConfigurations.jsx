@@ -55,7 +55,13 @@ const WidgetConfigurations = () => {
             <General {...{ widget: widgetData?.data?.widget, refetch }} />
           )}
           {selected === "display" && (
-            <Display {...{ widget: widgetData?.data?.widget,refetch,iconUrl:widgetData?.data?.iconUrl }} />
+            <Display
+              {...{
+                widget: widgetData?.data?.widget,
+                refetch,
+                iconUrl: widgetData?.data?.iconUrl,
+              }}
+            />
           )}
           {selected === "Advanced" && (
             <Advanced {...{ widget: widgetData?.data?.widget }} />

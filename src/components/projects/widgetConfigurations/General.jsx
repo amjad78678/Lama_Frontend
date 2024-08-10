@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { addWidgetConfiguration } from "../../../api/server";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import SaveButton from "../../common/SaveButton";
 
 const General = ({ widget, refetch }) => {
   const { projectId } = useParams();
@@ -85,12 +86,8 @@ const General = ({ widget, refetch }) => {
           Lorem ipsum dolor, sit amet consectetur adipisicing elit.{" "}
         </p>
       </div>
-      <button
-        onClick={() => addWidgetMutate(widgetData)}
-        className="mt-4 bg-purple px-6 rounded-lg font-bold text-white w-[8vw] py-2 text-xl"
-      >
-        Save
-      </button>
+  
+      <SaveButton onClick={() => addWidgetMutate(widgetData)} isPending={isPending} />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { addWidgetConfiguration } from "../../../api/server";
 import toast from "react-hot-toast";
 import Dropzone from "react-dropzone";
+import SaveButton from "../../common/SaveButton";
 
 const Display = ({ widget, refetch, iconUrl }) => {
   const { projectId } = useParams();
@@ -99,7 +100,7 @@ const Display = ({ widget, refetch, iconUrl }) => {
                   className="border border-gray-400 w-full rounded-lg"
                 />
                 <input
-                  className="border w-10 h-full rounded-lg"
+                  className={`border w-10 h-full rounded-lg`}
                   type="color"
                   name="primaryColor"
                   value={widgetData.primaryColor}
@@ -299,13 +300,9 @@ const Display = ({ widget, refetch, iconUrl }) => {
               </p>
             </div>
 
-            <button
-              className="mt-10 bg-purple px-6 rounded-lg font-bold text-white w-[8vw] py-2 text-xl"
-              onClick={handleSaveData}
-              disabled={isPending}
-            >
-              Save
-            </button>
+            <div className="mt-6">
+              <SaveButton onClick={handleSaveData} isPending={isPending} />
+            </div>
           </div>
         </div>
       </div>

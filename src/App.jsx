@@ -6,20 +6,26 @@ import Upload from "./components/projects/upload/Upload";
 import TranscriptEdit from "./components/projects/transcriptEdit/TranscriptEdit";
 import WidgetConfigurations from "./components/projects/widgetConfigurations/WidgetConfigurations";
 import SettingsPage from "./pages/SettingsPage";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/projects" element={<ProjectsPage />}>
-          <Route path="upload/:projectId" element={<Upload />} />
-          <Route
-            path="transcript/:projectId/:fileId"
-            element={<TranscriptEdit />}
-          />
-          <Route path="widget/:projectId" element={<WidgetConfigurations />} />
-          <Route path="settings/:projectId" element={<SettingsPage />} />
+        <Route path="" element={<ProtectedRoute />}>
+          <Route path="/projects" element={<ProjectsPage />}>
+            <Route path="upload/:projectId" element={<Upload />} />
+            <Route
+              path="transcript/:projectId/:fileId"
+              element={<TranscriptEdit />}
+            />
+            <Route
+              path="widget/:projectId"
+              element={<WidgetConfigurations />}
+            />
+            <Route path="settings/:projectId" element={<SettingsPage />} />
+          </Route>
         </Route>
       </Routes>
     </Router>

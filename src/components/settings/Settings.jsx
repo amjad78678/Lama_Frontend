@@ -5,21 +5,12 @@ import { FaRegEdit } from "react-icons/fa";
 import { editUserData, getUserData } from "../../api/server";
 import Loader from "../common/Loader";
 import toast from "react-hot-toast";
+import SaveButton from "../common/SaveButton";
 
-const Settings = () => {
-  const {
-    isLoading,
-    data: user,
-    refetch,
-  } = useQuery({
-    queryKey: ["userDataInSettings"],
-    queryFn: getUserData,
-  });
-
+const Settings = ({ user, refetch }) => {
+  console.log("iam user", user);
   const [file, setFile] = useState(null);
-  const [previewImage, setPreviewImage] = useState(
-    user?.data?.user?.image || null
-  );
+  const [previewImage, setPreviewImage] = useState(user?.data?.user?.image || null);
   const handleDropFile = (file) => {
     setFile(file);
     setPreviewImage(URL.createObjectURL(file));
@@ -41,7 +32,7 @@ const Settings = () => {
     }));
   };
 
-  const { mutate: updateUserMutate } = useMutation({
+  const { isPending, mutate: updateUserMutate } = useMutation({
     mutationFn: editUserData,
     onSuccess: (res) => {
       if (res.data.success) {
@@ -63,17 +54,15 @@ const Settings = () => {
     updateUserMutate(formData);
   };
 
-  return isLoading && !user ? (
-    <Loader />
-  ) : (
+  return (
     <div className="flex flex-col gap-4">
       <h1 className="text-4xl text-purple font-bold my-8">Account Settings</h1>
       <div className="grid grid-cols-12">
         <div className=" col-span-3 h-36  ">
-          <div className="relative h-full flex justify-center items-center">
+          <div className="relative  flex justify-center items-center">
             <img
-              className="h-full  cursor-pointer"
-              src={previewImage || userData.image}
+              className="h-40 w-40 object-cover  cursor-pointer rounded-full"
+              src={ previewImage || user?.data?.user?.image}
               alt=""
             />
             <Dropzone
@@ -117,12 +106,14 @@ const Settings = () => {
               />
             </div>
           </div>
-          <button
+
+          <SaveButton
             onClick={handleSubmit}
+            isPending={isPending}
             className="mt-4 bg-purple px-6 rounded-lg font-bold text-white w-[8vw] py-2 text-xl"
           >
             Save
-          </button>
+          </SaveButton>
         </div>
       </div>
 
