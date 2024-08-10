@@ -95,6 +95,14 @@ export const createFile = async (fileData) => {
     return errorHandle(error);
   }
 };
+export const deleteFile = async (fileData) => {
+  try {
+    const response = await Api.patch("/file/delete", fileData);
+    return response;
+  } catch (error) {
+    return errorHandle(error);
+  }
+};
 export const getProjectFiles = async (projectId) => {
   try {
     const response = await Api.get(`/file/get/${projectId}`);

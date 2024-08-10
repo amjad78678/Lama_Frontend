@@ -114,7 +114,9 @@ const ProjectSidebar = () => {
 
         <div className="border-t border-gray-400 w-full">
           <div
-            onClick={() => handleNavigate("Settings", `/projects/settings/${projectId}`)}
+            onClick={() =>
+              handleNavigate("Settings", `/projects/settings/${projectId}`)
+            }
             className={`mt-auto ${textColor(
               "Settings"
             )} flex justify-start items-center gap-3 px-4 py-2 rounded-full mt-2`}

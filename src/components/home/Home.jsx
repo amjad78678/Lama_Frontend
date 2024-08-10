@@ -32,13 +32,15 @@ const Home = ({ setIsLoginOpen, setIsCreateProjectOpen, projectData }) => {
             >
               <div className="flex gap-2 justify-center items-center">
                 <FaCirclePlus className="text-3xl " />
-                <h1 className="text-2xl font-bold">Create New Project</h1>
+                <h1 className="text-2xl font-bold">Create a New Project</h1>
               </div>
             </button>
           </div>
           <div className="px-14 mt-4 grid grid-cols-3 gap-10 ">
             {projectData?.projects?.map((project) => (
-              <Link to={`/projects/upload/${project._id}`} key={project._id}><ProjectCard  {...{ project }} /></Link>
+              <Link to={`/projects/upload/${project._id}`} key={project._id}>
+                <ProjectCard {...{ project }} />
+              </Link>
             ))}
           </div>
         </div>

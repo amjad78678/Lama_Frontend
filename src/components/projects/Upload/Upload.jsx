@@ -3,9 +3,15 @@ import MediaCard from "./MediaCard";
 import Backdrop from "../../common/Backdrop";
 import UploadLinkModal from "./UploadLinkModal";
 import ReactDOM from "react-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
-import { getProjectData, getProjectFiles } from "../../../api/server";
+import Swal from "sweetalert2";
+import {
+  deleteFile,
+  getProjectData,
+  getProjectFiles,
+} from "../../../api/server";
+import toast from "react-hot-toast";
 
 const Upload = () => {
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
@@ -31,6 +37,34 @@ const Upload = () => {
     queryKey: ["fetchProjectDataInUpload"],
     queryFn: () => getProjectData(projectId),
   });
+
+  const { mutate: deleteFileMutate } = useMutation({
+    mutationFn: deleteFile,
+    onSuccess: (res) => {
+      if (res.data.success) {
+        Swal.fire("Deleted!", res.data.message, "success");
+        refetch();
+      }
+    },
+  });
+
+  const handleDeleteFile = (fileId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteFileMutate({
+          fileId: fileId,
+        });
+      }
+    });
+  };
 
   return (
     <>
@@ -105,7 +139,7 @@ const Upload = () => {
                           </button>
                         </Link>
                         <button
-                          onClick={() => console.log("delete")}
+                          onClick={() => handleDeleteFile(file._id)}
                           className="text-red-500 border p-2 rounded-r-md w-[5vw]"
                         >
                           Delete

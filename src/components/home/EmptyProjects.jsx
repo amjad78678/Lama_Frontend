@@ -1,7 +1,7 @@
 import React from "react";
 import { FaCirclePlus } from "react-icons/fa6";
 import { useSelector } from "react-redux";
-const EmptyProjects = ({handleCreateProject}) => {
+const EmptyProjects = ({ handleCreateProject }) => {
   return (
     <div>
       <div className="flex flex-col gap-4 justify-center items-center min-h-screen my-10">
@@ -28,7 +28,7 @@ const EmptyProjects = ({handleCreateProject}) => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default EmptyProjects
+export default EmptyProjects;
