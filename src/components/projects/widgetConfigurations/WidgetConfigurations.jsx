@@ -5,6 +5,7 @@ import Advanced from "./Advanced";
 import { useQuery } from "@tanstack/react-query";
 import { getWidgetConfiguration } from "../../../api/server";
 import { useParams } from "react-router-dom";
+import Loader from "../../common/Loader";
 
 const WidgetConfigurations = () => {
   const [selected, setSelected] = useState("general");
@@ -25,7 +26,9 @@ const WidgetConfigurations = () => {
 
   console.log("widgetData", widgetData);
 
-  return (
+  return isLoading || !widgetData ? (
+    <Loader />
+  ) : (
     <div>
       <div>
         <h1 className="text-4xl text-purple font-bold my-8">Configuration</h1>

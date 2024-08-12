@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import EmptyProjects from "./EmptyProjects";
 import ProjectCard from "./ProjectCard";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Home = ({ setIsLoginOpen, setIsCreateProjectOpen, projectData }) => {
   const { uLoggedIn } = useSelector((state) => state.userAuth);
@@ -26,7 +27,12 @@ const Home = ({ setIsLoginOpen, setIsCreateProjectOpen, projectData }) => {
               Projects
             </h1>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5 }}
               onClick={handleCreateProject}
               className="px-4 py-2 bg-black text-white rounded-lg"
             >
@@ -34,7 +40,7 @@ const Home = ({ setIsLoginOpen, setIsCreateProjectOpen, projectData }) => {
                 <FaCirclePlus className="text-3xl " />
                 <h1 className="text-2xl font-bold">Create a New Project</h1>
               </div>
-            </button>
+            </motion.button>
           </div>
           <div className="px-14 mt-4 grid grid-cols-3 gap-10 ">
             {projectData?.projects?.map((project) => (

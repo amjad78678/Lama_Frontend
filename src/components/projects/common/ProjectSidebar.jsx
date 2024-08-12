@@ -23,7 +23,7 @@ const ProjectSidebar = () => {
   };
 
   return (
-    <div className="col-span-3 flex flex-col bg-[#f4e8ff] p-5">
+    <div className="flex flex-col bg-[#f4e8ff] p-5 h-full">
       <div>
         <div className="flex gap-2 justify-start items-center">
           <img className="h-10" src="/directright.png" alt="Direct Right" />

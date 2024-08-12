@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const MediaCard = ({image,text,platform,handleUploadLink}) => {
   return (
     <div onClick={()=>handleUploadLink(platform,image)} className="grid grid-cols-12 gap-6 items-center justify-center rounded-xl border-2 border-gray-300 bg-white shadow-lg p-2 cursor-pointer">

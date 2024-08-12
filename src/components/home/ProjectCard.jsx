@@ -1,10 +1,25 @@
 /* eslint-disable react/prop-types */
 import React from "react";
+import { motion } from "framer-motion";
 
 const ProjectCard = ({ project }) => {
   const firstName = project.projectName.substring(0, 2);
   return (
-    <div>
+    <motion.div
+      initial={{ scale: 0.8, y: 50, rotateX: -15 }}
+      animate={{ scale: 1, y: 0, rotateX: 0 }}
+      exit={{ scale: 0.8, y: 50, rotateX: 15 }}
+      transition={{
+        type: "spring",
+        stiffness: 260,
+        damping: 20,
+        duration: 0.6,
+      }}
+      whileHover={{
+        scale: 1.05,
+        shadow: "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)",
+      }}
+    >
       <div className="grid grid-cols-12 gap-6 items-center justify-center rounded-xl border-2 border-gray-300 bg-white shadow-lg p-2">
         <div className="col-span-5 bg-purple w-full flex justify-center items-center rounded-lg">
           <div className="flex justify-center items-center py-4">
@@ -25,7 +40,7 @@ const ProjectCard = ({ project }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
