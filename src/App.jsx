@@ -12,7 +12,7 @@ const SettingsPage = lazy(() => import("./pages/SettingsPage.jsx"));
 const TranscriptEdit = lazy(() =>
   import("./components/projects/transcriptEdit/TranscriptEditFile.jsx")
 );
-const Upload = lazy(() => import("./components/projects/upload/Upload.jsx"));
+const Upload = lazy(() => import("./components/projects/upload/UploadFile.jsx"));
 
 function App() {
   return (
