@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import MediaCard from "./MediaCard";
-import Backdrop from "../../common/Backdrop";
-import UploadLinkModal from "./UploadLinkModal";
+import MediaCard from "../MediaCard";
+import Backdrop from "../../../common/Backdrop";
+import UploadLinkModal from "../UploadLinkModal";
 import ReactDOM from "react-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
@@ -10,8 +10,7 @@ import {
   deleteFile,
   getProjectData,
   getProjectFiles,
-} from "../../../api/server";
-import toast from "react-hot-toast";
+} from "../../../../api/server";
 
 const Upload = () => {
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
