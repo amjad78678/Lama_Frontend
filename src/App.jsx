@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import ProtectedRoute from "./components/common/ProtectedRoute.jsx";
 import Loader from "./components/common/Loader.jsx";
 
@@ -10,13 +10,13 @@ const WidgetConfigurations = lazy(() =>
 );
 const SettingsPage = lazy(() => import("./pages/SettingsPage.jsx"));
 const TranscriptEdit = lazy(() =>
-  import("./components/projects/transcriptEdit/TranscriptEdit.jsx")
+  import("./components/projects/transcriptEdit/TranscriptEditFile.jsx")
 );
 const Upload = lazy(() => import("./components/projects/upload/Upload.jsx"));
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -36,7 +36,7 @@ function App() {
           </Route>
         </Routes>
       </Suspense>
-    </Router>
+    </BrowserRouter>
   );
 }
 
