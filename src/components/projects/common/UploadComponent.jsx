@@ -12,7 +12,7 @@ import {
   getProjectData,
   getProjectFiles,
 } from "../../../api/server";
-import MediaCard from "../upload/MediaCard";
+import MediaCard from "./MediaCard";
 import LinkModalUpload from "./LinkModalUpload";
 
 const UploadComponent = () => {
