@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { IoSettingsOutline } from "react-icons/io5";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { NavSideBarContext } from "../../../store/context/NavSideBarContextProvider";
 
 const ProjectSidebar = () => {
   const [selected, setSelected] = useState("Projects");
   const { projectId } = useParams();
   const navigate = useNavigate();
+  const { open, setOpen } = useContext(NavSideBarContext);
+
+  const closeSidebar = () => {
+    if (open) {
+      setOpen(false);
+    }
+  };
 
   const handleNavigate = (name, url) => {
     setSelected(name);
     navigate(url);
+    closeSidebar();
   };
 
   const textColor = (tab) => {
@@ -114,9 +123,10 @@ const ProjectSidebar = () => {
 
         <div className="border-t border-gray-400 w-full">
           <div
-            onClick={() =>
-              handleNavigate("Settings", `/projects/settings/${projectId}`)
-            }
+            onClick={() => {
+              handleNavigate("Settings", `/projects/settings/${projectId}`);
+              closeSidebar();
+            }}
             className={`mt-auto ${textColor(
               "Settings"
             )} flex justify-start items-center gap-3 px-4 py-2 rounded-full mt-2`}

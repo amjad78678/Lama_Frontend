@@ -87,7 +87,7 @@ const Display = ({ widget, refetch, iconUrl }) => {
   return (
     <div className="flex flex-col">
       <div className="w-full border-b-4 pb-5">
-        <div className="grid grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-12">
           <div className="flex flex-col gap-4">
             <div>
               <h1 className="font-bold text-lg mb-2">Primary Color</h1>
@@ -186,7 +186,7 @@ const Display = ({ widget, refetch, iconUrl }) => {
       <div className="py-5">
         <h1 className="font-bold text-lg text-purple mb-4">Chat Icon</h1>
 
-        <div className="grid grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-12">
           <div className="flex flex-col gap-4">
             <div>
               <h1 className="font-bold text-lg mb-2">Chat Icon Size</h1>
@@ -225,8 +225,8 @@ const Display = ({ widget, refetch, iconUrl }) => {
             </div>
 
             <div className="">
-              <h1 className="font-bold text-lg mb-2">Bot Icon</h1>
-              <div className="my-2 flex gap-4 items-center">
+              <h1 className="font-bold text-xl md:text-lg  mb-2">Bot Icon</h1>
+              <div className="my-2 flex flex-col md:flex-row gap-4 items-center">
                 <div className="w-20 h-20 rounded-full border border-gray-400 flex justify-center items-center overflow-hidden">
                   <img
                     className="w-full h-full object-cover"
@@ -247,7 +247,7 @@ const Display = ({ widget, refetch, iconUrl }) => {
                             type="button"
                             className="flex gap-2 items-center bg-purple text-white px-4 py-2 rounded-lg font-bold"
                           >
-                            <h1>Upload Image</h1>
+                            <h1 className="whitespace-nowrap">Upload Image</h1>
                             <FiUpload />
                           </button>
                         </div>

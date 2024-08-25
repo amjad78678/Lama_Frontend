@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import MediaCard from "../MediaCard";
-import Backdrop from "../../../common/Backdrop";
-import UploadLinkModal from "../UploadLinkModal";
+import MediaCard from "../upload/MediaCard";
+import Backdrop from "../../common/Backdrop";
+import UploadLinkModal from "../upload/UploadLinkModal";
 import ReactDOM from "react-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+
 import {
   deleteFile,
   getProjectData,
   getProjectFiles,
-} from "../../../../api/server";
+} from "../../../api/server";
 
 const Upload = () => {
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
@@ -132,19 +135,28 @@ const Upload = () => {
                         {new Date(file.createdAt).toLocaleString()}
                       </td>
                       <td className="px-4 py-4">Done</td>
-                      <td className="px-4 py-4 flex justify-center">
+                      <td className="px-4 py-4 flex justify-center gap-1 md:gap-0">
                         <Link
                           to={`/projects/transcript/${file.projectId}/${file._id}`}
                         >
-                          <button className="text-black border p-2 rounded-l-md w-[5vw]">
+                          <button className="hidden md:block text-black border p-2 rounded-l-md md:w-[5vw]">
                             Edit
+                          </button>
+                          <button className="block md:hidden text-black border p-2 rounded-l-md md:w-[5vw]">
+                            <MdEdit />
                           </button>
                         </Link>
                         <button
                           onClick={() => handleDeleteFile(file._id)}
-                          className="text-red-500 border p-2 rounded-r-md w-[5vw]"
+                          className="hidden md:block text-red-500 border p-2 rounded-r-md md:w-[5vw]"
                         >
                           Delete
+                        </button>
+                        <button
+                          onClick={() => handleDeleteFile(file._id)}
+                          className="block md:hidden text-red-500 border p-2 rounded-r-md md:w-[5vw]"
+                        >
+                          <MdDelete />
                         </button>
                       </td>
                     </tr>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IoNotifications } from "react-icons/io5";
 import { MdOutlineHome } from "react-icons/md";
 import { RxSlash } from "react-icons/rx";
@@ -6,6 +6,8 @@ import { MdOutlineNotifications } from "react-icons/md";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getProjectData } from "../../../api/server";
+import { IoIosMenu } from "react-icons/io";
+import { NavSideBarContext } from "../../../store/context/NavSideBarContextProvider";
 const ProjectNavbar = () => {
   const { projectId } = useParams();
   const navigate = useNavigate();
@@ -25,6 +27,8 @@ const ProjectNavbar = () => {
   } else if (currentPath === "Settings") {
     currentPath = "Account Settings";
   }
+
+  const {open,setOpen}=useContext(NavSideBarContext)
 
   return (
     <div className="flex justify-between">
@@ -58,6 +62,9 @@ const ProjectNavbar = () => {
         </div>
         <div>
           <MdOutlineNotifications className="text-2xl md:text-5xl cursor-pointer" />
+        </div>
+        <div className="block md:hidden">
+          <IoIosMenu onClick={()=>setOpen(!open)} className="text-3xl md:text-5xl mx-2 cursor-pointer" />
         </div>
       </div>
     </div>

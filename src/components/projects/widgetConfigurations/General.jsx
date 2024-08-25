@@ -86,8 +86,11 @@ const General = ({ widget, refetch }) => {
           Lorem ipsum dolor, sit amet consectetur adipisicing elit.{" "}
         </p>
       </div>
-  
-      <SaveButton onClick={() => addWidgetMutate(widgetData)} isPending={isPending} />
+
+      <SaveButton
+        onClick={() => addWidgetMutate(widgetData)}
+        isPending={isPending}
+      />
     </div>
   );
 };

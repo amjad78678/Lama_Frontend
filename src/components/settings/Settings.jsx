@@ -10,7 +10,9 @@ import SaveButton from "../common/SaveButton";
 const Settings = ({ user, refetch }) => {
   console.log("iam user", user);
   const [file, setFile] = useState(null);
-  const [previewImage, setPreviewImage] = useState(user?.data?.user?.image || null);
+  const [previewImage, setPreviewImage] = useState(
+    user?.data?.user?.image || null
+  );
   const handleDropFile = (file) => {
     setFile(file);
     setPreviewImage(URL.createObjectURL(file));
@@ -57,12 +59,12 @@ const Settings = ({ user, refetch }) => {
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-4xl text-purple font-bold my-8">Account Settings</h1>
-      <div className="grid grid-cols-12">
-        <div className=" col-span-3 h-36  ">
-          <div className="relative  flex justify-center items-center">
+      <div className="md:grid grid-cols-12">
+        <div className="col-span-3 h-36  ">
+          <div className="relative flex justify-center items-center">
             <img
               className="h-40 w-40 object-cover  cursor-pointer rounded-full"
-              src={ previewImage || user?.data?.user?.image}
+              src={previewImage || user?.data?.user?.image}
               alt=""
             />
             <Dropzone
@@ -72,7 +74,7 @@ const Settings = ({ user, refetch }) => {
                 <section>
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
-                    <button className="absolute cursor-pointer bottom-0 right-5 h-10 w-10  rounded-full font-bold border-2 border-black text-xl flex justify-center items-center ">
+                    <button className="absolute cursor-pointer bottom-0  md:right-5  h-10 w-10  rounded-full font-bold border-2 border-black text-xl flex justify-center items-center ">
                       <FaRegEdit className="text-2xl " />
                     </button>
                   </div>
@@ -82,8 +84,8 @@ const Settings = ({ user, refetch }) => {
           </div>
         </div>
 
-        <div className="col-span-9">
-          <div className=" grid grid-cols-2  items-center space-x-10">
+        <div className="col-span-9 mt-10 md:mt-0">
+          <div className="grid grid-cols-2  items-center space-x-4 md:space-x-10">
             <div className="w-full ">
               <h1 className="text-xl font-bold my-2">User Name</h1>
               <input
@@ -121,13 +123,13 @@ const Settings = ({ user, refetch }) => {
         <h1 className="text-4xl text-purple font-bold my-8">Subscriptions</h1>
 
         <div className="bg-gradient-to-r from-[#7C3AED] to-[#5B21B6] flex justify-center items-center px-6 py-4 rounded-lg">
-          <div className="flex justify-between flex-grow px-4 py-2">
-            <h1 className="text-white text-2xl">
-              You are currently on the{" "}
+          <div className="flex justify-between flex-grow  px-2 md:px-4 py-2">
+            <h1 className="text-white md:text-2xl">
+              You are currently on the
               <span className="underline font-bold">Ques AI Basic Plan!</span>
             </h1>
 
-            <button className="bg-white px-6 rounded-lg font-bold text-purple">
+            <button className="bg-white px-4 md:px-6 rounded-lg font-bold text-purple">
               Upgrade
             </button>
           </div>
