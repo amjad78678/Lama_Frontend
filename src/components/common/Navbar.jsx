@@ -29,23 +29,23 @@ const Navbar = () => {
       <div className=" flex justify-between items-center">
         <div>
           <div className="flex gap-2 justify-center items-center">
-            <img src="./directright.png" alt="" />
-            <img className="h-8" src="./LAMA.png" alt="" />
+            <img className="h-8 md:h-full" src="./directright.png" alt="" />
+            <img className="h-6 md:h-8" src="./LAMA.png" alt="" />
           </div>
         </div>
 
-        <div className="flex gap-4">
-          <IoSettingsOutline className="text-3xl cursor-pointer" />
-          <IoMdNotificationsOutline className="text-3xl cursor-pointer" />
+        <div className="flex gap-2 md:gap-4 ">
+          <IoSettingsOutline className="text-2xl md:text-3xl cursor-pointer" />
+          <IoMdNotificationsOutline className="text-2xl md:text-3xl cursor-pointer" />
           {uLoggedIn && (
             <MdLogout
               onClick={() => logoutMutate({ email: userDetails.email })}
-              className="text-3xl cursor-pointer"
+              className="text-2xl md:text-3xl cursor-pointer"
             />
           )}
         </div>
       </div>
-      <div className="absolute bottom-0 left-28 top-28">
+      <div className="absolute bottom-0 md:left-28 top-28">
         <button className="flex justify-center items-center gap-2 border border-black rounded-xl px-3 py-1">
           <IoHomeOutline className="text-2xl" />
           <p>Back To Home</p>

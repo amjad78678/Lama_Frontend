@@ -11,12 +11,12 @@ const Projects = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="grid grid-cols-12 min-h-screen">
+      <div className="grid md:grid-cols-12 min-h-screen">
         <motion.div
           initial={{ x: -50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="col-span-3"
+          className="hidden md:block col-span-3"
         >
           <ProjectSidebar />
         </motion.div>

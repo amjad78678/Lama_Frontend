@@ -72,7 +72,7 @@ const Upload = () => {
           {projectData?.data?.project.projectName}
         </h1>
 
-        <div className="grid grid-cols-3 gap-4 ">
+        <div className="grid md:grid-cols-3 gap-4 ">
           <MediaCard
             {...{
               image: "/Frame 1.png",
@@ -103,11 +103,14 @@ const Upload = () => {
           <>
             <div className="bg-purple w-full h-14 rounded-lg mt-4 flex justify-start items-center">
               <div className="flex flex-grow justify-between  items-center mx-5">
-                <h1 className="text-xl text-white">
+                <h1 className="md:text-xl text-white ">
                   All files are processed! Your widget is ready to go!
                 </h1>
-                <button className="bg-white text-black px-5 py-2 rounded-lg font-semibold">
+                <button className="hidden md:block bg-white text-black md:px-5 md:py-2 rounded-lg font-semibold">
                   Try it out!
+                </button>
+                <button className="whitespace-nowrap md:hidden block bg-white text-black px-3  md:px-5 py-2 rounded-lg font-semibold">
+                  Try it!
                 </button>
               </div>
             </div>

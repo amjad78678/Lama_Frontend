@@ -9,9 +9,9 @@ const EmptyProjects = ({ handleCreateProject }) => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="flex flex-col gap-4 justify-center items-center min-h-screen my-10">
+      <div className="flex flex-col gap-6 md:gap-4 justify-center items-center min-h-screen md:my-10">
         <motion.h1
-          className="text-6xl font-bold text-[#7E22CE]"
+          className="text-4xl md:text-6xl font-bold text-[#7E22CE]"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
@@ -29,7 +29,7 @@ const EmptyProjects = ({ handleCreateProject }) => {
         />
 
         <motion.p
-          className="text-xl text-center w-10/12 text-gray-500"
+          className="text-base md:text-xl text-center w-10/12 text-gray-500"
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.5 }}
