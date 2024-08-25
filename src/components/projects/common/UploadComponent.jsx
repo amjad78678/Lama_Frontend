@@ -70,7 +70,7 @@ const UploadComponent = () => {
 
   return (
     <>
-      <div>
+      <div className="overflow-hidden">
         <h1 className="text-4xl text-purple font-bold my-8">
           {projectData?.data?.project.projectName}
         </h1>
@@ -106,19 +106,19 @@ const UploadComponent = () => {
           <>
             <div className="bg-purple w-full h-14 rounded-lg mt-4 flex justify-start items-center">
               <div className="flex flex-grow justify-between  items-center mx-5">
-                <h1 className="md:text-xl text-white ">
+                <h1 className="text-xs md:text-xl text-white ">
                   All files are processed! Your widget is ready to go!
                 </h1>
                 <button className="hidden md:block bg-white text-black md:px-5 md:py-2 rounded-lg font-semibold">
                   Try it out!
                 </button>
-                <button className="whitespace-nowrap md:hidden block bg-white text-black px-3  md:px-5 py-2 rounded-lg font-semibold">
+                <button className="whitespace-nowrap md:hidden block bg-white text-black text-xs px-2  py-2 rounded-lg font-semibold">
                   Try it!
                 </button>
               </div>
             </div>
-            <div className="border rounded-xl my-6">
-              <table className="w-full">
+            <div className="border rounded-xl my-6 overflow-x-scroll">
+              <table className="w-full ">
                 <thead>
                   <tr className="text-center border-b">
                     <th className="px-4 py-4">Name</th>

@@ -34,11 +34,10 @@ const EmptyProjects = ({ handleCreateProject }) => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.5 }}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in
+          Welcome to your project hub! Create and manage projects, add details,
+          set milestones, and configure widgets to track progress. Perfect for
+          personal or team projects, our platform keeps you organized and
+          efficient. Start your first project now and boost your productivity.
         </motion.p>
 
         <motion.button
