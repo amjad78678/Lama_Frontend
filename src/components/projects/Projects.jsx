@@ -14,7 +14,7 @@ const Projects = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="grid md:grid-cols-12 min-h-screen">
+      <div className="md:grid grid-cols-12 min-h-screen">
         {/* Desktop sidebar */}
         <motion.div
           initial={{ x: -50, opacity: 0 }}
@@ -50,7 +50,7 @@ const Projects = () => {
 
         {/* Main content */}
         <motion.div
-          className="col-span-12 md:col-span-9"
+          className="md:col-span-9"
           initial={{ x: 50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}

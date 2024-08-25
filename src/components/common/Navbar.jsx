@@ -35,7 +35,6 @@ const Navbar = () => {
         </div>
 
         <div className="flex gap-2 md:gap-4 ">
-          <IoSettingsOutline className="text-2xl md:text-3xl cursor-pointer" />
           <IoMdNotificationsOutline className="text-2xl md:text-3xl cursor-pointer" />
           {uLoggedIn && (
             <MdLogout
