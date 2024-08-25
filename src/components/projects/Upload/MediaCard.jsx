@@ -15,6 +15,6 @@ const MediaCard = ({image,text,platform,handleUploadLink}) => {
       </div>
     </div>
   );
-};
+};     
 
 export default MediaCard;
