@@ -5,7 +5,7 @@ import { createFile } from "../../../api/server";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
-const UploadLinkModal = ({
+const LinkModalUpload = ({
   isUploadModalOpen,
   setIsUploadModalOpen,
   modalPlatform,
@@ -80,4 +80,4 @@ const UploadLinkModal = ({
   );
 };
 
-export default UploadLinkModal;
+export default LinkModalUpload;

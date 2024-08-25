@@ -12,8 +12,8 @@ import {
   getProjectData,
   getProjectFiles,
 } from "../../../api/server";
-import UploadLinkModal from "../upload/UploadLinkModal";
 import MediaCard from "../upload/MediaCard";
+import LinkModalUpload from "./LinkModalUpload";
 
 const UploadComponent = () => {
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
@@ -176,7 +176,7 @@ const UploadComponent = () => {
 
           {ReactDOM.createPortal(
             <div className="fixed left-1/2 top-1/2 transform -translate-y-1/2 -translate-x-1/2 h-[80vh] w-full flex items-center justify-center z-10">
-              <UploadLinkModal
+              <LinkModalUpload
                 {...{
                   isUploadModalOpen,
                   setIsUploadModalOpen,
