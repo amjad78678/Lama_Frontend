@@ -15,7 +15,7 @@ import {
   getProjectFiles,
 } from "../../../api/server";
 
-const Upload = () => {
+const UploadComponent = () => {
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [modalPlatform, setModalPlatform] = useState("");
   const [platformImg, setPlatformImg] = useState("");
@@ -194,4 +194,4 @@ const Upload = () => {
   );
 };
 
-export default Upload;
+export default UploadComponent;

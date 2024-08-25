@@ -14,7 +14,7 @@ const TranscriptEdit = lazy(() =>
   import("./components/projects/transcriptEdit/TranscriptEditFile.jsx")
 );
 const Upload = lazy(() =>
-  import("./components/projects/common/UploadFile.jsx")
+  import("./components/projects/common/UploadComponent.jsx")
 );
 
 function App() {
@@ -24,20 +24,18 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="" element={<ProtectedRoute />}>
-        
-              <Route path="/projects" element={<ProjectsPage />}>
-                <Route path="upload/:projectId" element={<Upload />} />
-                <Route
-                  path="transcript/:projectId/:fileId"
-                  element={<TranscriptEdit />}
-                />
-                <Route
-                  path="widget/:projectId"
-                  element={<WidgetConfigurations />}
-                />
-                <Route path="settings/:projectId" element={<SettingsPage />} />
-              </Route>
-        
+            <Route path="/projects" element={<ProjectsPage />}>
+              <Route path="upload/:projectId" element={<Upload />} />
+              <Route
+                path="transcript/:projectId/:fileId"
+                element={<TranscriptEdit />}
+              />
+              <Route
+                path="widget/:projectId"
+                element={<WidgetConfigurations />}
+              />
+              <Route path="settings/:projectId" element={<SettingsPage />} />
+            </Route>
           </Route>
         </Routes>
       </Suspense>
