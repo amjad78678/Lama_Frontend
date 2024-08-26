@@ -47,7 +47,7 @@ const Home = ({ setIsLoginOpen, setIsCreateProjectOpen, projectData }) => {
               </div>
             </motion.button>
           </div>
-          <div className="px-14 mt-4 grid md:grid-cols-3 gap-10 ">
+          <div className="px-4 md:px-14 mt-4 grid md:grid-cols-3 gap-10 ">
             {projectData?.projects?.map((project) => (
               <Link to={`/projects/upload/${project._id}`} key={project._id}>
                 <ProjectCard {...{ project }} />

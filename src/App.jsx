@@ -2,7 +2,6 @@ import React, { lazy, Suspense } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import ProtectedRoute from "./components/common/ProtectedRoute.jsx";
 import Loader from "./components/common/Loader.jsx";
-import NavSideBarContextProvider from "./store/context/NavSideBarContextProvider.jsx";
 
 const HomePage = lazy(() => import("./pages/HomePage.jsx"));
 const ProjectsPage = lazy(() => import("./pages/ProjectsPage.jsx"));

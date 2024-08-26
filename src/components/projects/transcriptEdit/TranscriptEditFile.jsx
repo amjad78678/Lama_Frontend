@@ -47,16 +47,18 @@ const TranscriptEdit = () => {
   return (
     <div className="">
       <div className="flex justify-between items-center">
-        <h1 className="text-4xl text-purple font-bold my-8">Edit Transcript</h1>
+        <h1 className="text-xl md:text-4xl text-purple font-bold my-8">
+          Edit Transcript
+        </h1>
 
         {editMode && (
           <div className="flex gap-2">
-            <button className="border border-red-500 rounded-lg px-6 py-2 font-bold text-red-500">
+            <button className="border border-red-500 rounded-lg px-1 py-1 md:px-6 md:py-2 font-bold text-red-500">
               Discard
             </button>
             <button
               onClick={handleSubmitEdit}
-              className="border  rounded-lg px-4 py-2 font-bold text-white bg-black"
+              className="border  rounded-lg px-1 py-1 md:px-4 md:py-2 font-bold text-white bg-black"
             >
               Save & exit
             </button>

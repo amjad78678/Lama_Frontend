@@ -1,35 +1,38 @@
 import React, { useContext, useState } from "react";
 import { IoSettingsOutline } from "react-icons/io5";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { NavSideBarContext } from "../../../store/context/NavSideBarContextProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedTab, toggleSidebar } from "../../../store/slices/appSlice";
 
 const ProjectSidebar = () => {
-  const [selected, setSelected] = useState("Projects");
+  const { selectedTab } = useSelector((state) => state.app);
   const { projectId } = useParams();
   const navigate = useNavigate();
-  const { open, setOpen } = useContext(NavSideBarContext);
-
-  const closeSidebar = () => {
-    if (open) {
-      setOpen(false);
-    }
-  };
+  const dispatch = useDispatch();
 
   const handleNavigate = (name, url) => {
-    setSelected(name);
-    navigate(url);
-    closeSidebar();
+    dispatch(toggleSidebar());
+    setTimeout(() => {
+      dispatch(setSelectedTab(name));
+      navigate(url);
+    }, 0);
   };
 
-  const textColor = (tab) => {
-    return selected === tab
-      ? "bg-purple text-white"
-      : "hover:bg-[#e1d8ed] text-black";
-  };
+  const textColor = React.useMemo(
+    () => (tab) => {
+      return selectedTab === tab
+        ? "bg-purple text-white"
+        : "hover:bg-[#e1d8ed] text-black";
+    },
+    [selectedTab]
+  );
 
-  const logoColor = (tab) => {
-    return selected === tab ? "bg-black" : "bg-[#cac1d4]";
-  };
+  const logoColor = React.useMemo(
+    () => (tab) => {
+      return selectedTab === tab ? "bg-black" : "bg-[#cac1d4]";
+    },
+    [selectedTab]
+  );
 
   return (
     <div className="flex flex-col bg-[#f4e8ff] p-5 h-full">
@@ -125,7 +128,7 @@ const ProjectSidebar = () => {
           <div
             onClick={() => {
               handleNavigate("Settings", `/projects/settings/${projectId}`);
-              closeSidebar();
+              dispatch(toggleSidebar());
             }}
             className={`mt-auto ${textColor(
               "Settings"

@@ -7,7 +7,8 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getProjectData } from "../../../api/server";
 import { IoIosMenu } from "react-icons/io";
-import { NavSideBarContext } from "../../../store/context/NavSideBarContextProvider";
+import { useDispatch } from "react-redux";
+import { toggleSidebar } from "../../../store/slices/appSlice";
 const ProjectNavbar = () => {
   const { projectId } = useParams();
   const navigate = useNavigate();
@@ -28,8 +29,7 @@ const ProjectNavbar = () => {
     currentPath = "Account Settings";
   }
 
-  const {open,setOpen}=useContext(NavSideBarContext)
-
+  const dispatch = useDispatch();
   return (
     <div className="flex justify-between">
       <div className="flex gap-1">
@@ -64,7 +64,10 @@ const ProjectNavbar = () => {
           <MdOutlineNotifications className="text-2xl md:text-5xl cursor-pointer" />
         </div>
         <div className="block md:hidden">
-          <IoIosMenu onClick={()=>setOpen(!open)} className="text-3xl md:text-5xl mx-2 cursor-pointer" />
+          <IoIosMenu
+            onClick={() => dispatch(toggleSidebar())}
+            className="text-3xl md:text-5xl mx-2 cursor-pointer"
+          />
         </div>
       </div>
     </div>

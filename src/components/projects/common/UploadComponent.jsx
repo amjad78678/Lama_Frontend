@@ -75,7 +75,7 @@ const UploadComponent = () => {
           {projectData?.data?.project.projectName}
         </h1>
 
-        <div className="grid md:grid-cols-3 gap-4 ">
+        <div className="md:grid grid-cols-3 gap-4 ">
           <MediaCard
             {...{
               image: "/Frame 1.png",
